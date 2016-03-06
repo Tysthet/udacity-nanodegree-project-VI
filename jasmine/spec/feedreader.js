@@ -28,7 +28,7 @@ $(function() {
 				 * in the allFeeds object and ensures it has a URL defined
 				 * and that the URL is not empty.
 				 */
-				it('have a defined URL', function() {
+				it('have a defined URL and the URL is not empty', function() {
 						allFeeds.forEach(function(feed) {
 								expect(feed.url).toBeDefined();
 								expect(feed.url.length).not.toBe(0);
@@ -83,9 +83,7 @@ $(function() {
 				 * a single .entry element within the .feed container.
 				 */
 				beforeEach(function(done) {
-						loadFeed(0, function() {
-								done();
-						});
+						loadFeed(0, done);
 				});
 
 
@@ -100,9 +98,7 @@ $(function() {
 
 				// A test that ensures that each entry's URL is valid.
 				beforeEach(function(done) {
-						loadFeed(0, function() {
-								done();
-						});
+						loadFeed(0, done);
 				});
 
 
@@ -162,20 +158,20 @@ $(function() {
 				 * by the loadFeed function that the content actually changes.
 				 * Remember, loadFeed() is asynchronous.
 				 */
-				var initialTitle, secondTitle;
+				var initialFeed, secondFeed;
 				// Randomizing between 1 and 3 the id of the feed that will be loaded.
 				var feedIndex = Math.floor(Math.random() * 3) + 1;
 
 				beforeEach(function(done) {
-						initialTitle = $('.header-title').text();
-						loadFeed(feedIndex, function() {
-								done();
+						loadFeed(0, function() {
+							initialFeed = $('.feed').html();
+							loadFeed(1, done);
 						});
 				});
 
 				it('replaces the previous one', function() {
-						secondTitle = $('.header-title').text();
-						expect(secondTitle).not.toEqual(initialTitle);
+						secondFeed = $('.feed').html();
+						expect(secondFeed).not.toEqual(initialFeed);
 				});
 
 		});
